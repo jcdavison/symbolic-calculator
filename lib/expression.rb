@@ -1,6 +1,8 @@
 class UndefinedVariableError < StandardError; end
 require 'pry'
 
+# this feels like there a significant error with the way I'm tokenizing that subsequently impacts the entire program.
+
 class Expression
   attr_accessor :expr, :left, :node, :right, :tokens
   def initialize(expr)
@@ -17,7 +19,19 @@ class Expression
 
   def evaluate(bindings = {})
     undefined_variables?(bindings)
+    if @node == "+" 
+      x = substitute(@left, bindings)
+      y = substitute(@right, bindings)
+      x.to_i + y.to_i
+    end
+  end
 
+  def substitute variable, bindings
+    if bindings[variable.to_sym]
+      bindings[variable.to_sym]
+    else
+      variable
+    end
   end
   
   def undefined_variables?(bindings)
