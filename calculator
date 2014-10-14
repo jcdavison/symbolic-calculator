@@ -1,17 +1,10 @@
 #!/usr/bin/env ruby
 
 lib = File.expand_path("../lib", __FILE__)
+p lib
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-# This adds the "lib" directory to the library path, so we can type
-#
-#     require "whatever"
-#
-# instead of
-#
-#     require "./lib/whatever"
-#
 
-require "expression"
+require 'expression'
 
 bindings = {}
 
@@ -23,7 +16,6 @@ loop do
   when "exit"
     puts "Bye bye!"
     exit
-  # e.g., lines that look like x = 20
   when /^([a-z]+)\s*=\s*(-*\d+)$/
     bindings[$1.to_sym] = $2.to_i
   else
